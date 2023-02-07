@@ -2,30 +2,30 @@
 
 #region Create and set a Dictionary of conversion
 
-  IDictionary<char, string> braileCode = new Dictionary<char, string>();
+  IDictionary<char, string> morseCode = new Dictionary<char, string>();
 
-  braileCode.Add('a', ".-"); braileCode.Add('b', "-...");
-  braileCode.Add('c', "-.-."); braileCode.Add('d', "-..");
-  braileCode.Add('e', "."); braileCode.Add('f', "..-.");
-  braileCode.Add('g', "--."); braileCode.Add('h', "....");
-  braileCode.Add('i', ".."); braileCode.Add('j', ".---");
-  braileCode.Add('k', "-.-"); braileCode.Add('l', ".-..");
-  braileCode.Add('m', "--"); braileCode.Add('n', "-.");
-  braileCode.Add('o', "---"); braileCode.Add('p', ".--.");
-  braileCode.Add('q', "--.-"); braileCode.Add('r', ".-.");
-  braileCode.Add('s', "..."); braileCode.Add('t', "-");
-  braileCode.Add('u', "..-"); braileCode.Add('v', "...-");
-  braileCode.Add('w', ".--"); braileCode.Add('x', "-..-");
-  braileCode.Add('y', "-.--"); braileCode.Add('z', "--..");
-  braileCode.Add('1', ".----"); braileCode.Add('2', "..---");
-  braileCode.Add('3', "...--"); braileCode.Add('4', "....-");
-  braileCode.Add('5', "....."); braileCode.Add('6', "-....");
-  braileCode.Add('7', "--..."); braileCode.Add('8', "---..");
-  braileCode.Add('9', "----."); braileCode.Add('0', "-----");
+  morseCode.Add('a', ".-"); morseCode.Add('b', "-...");
+  morseCode.Add('c', "-.-."); morseCode.Add('d', "-..");
+  morseCode.Add('e', "."); morseCode.Add('f', "..-.");
+  morseCode.Add('g', "--."); morseCode.Add('h', "....");
+  morseCode.Add('i', ".."); morseCode.Add('j', ".---");
+  morseCode.Add('k', "-.-"); morseCode.Add('l', ".-..");
+  morseCode.Add('m', "--"); morseCode.Add('n', "-.");
+  morseCode.Add('o', "---"); morseCode.Add('p', ".--.");
+  morseCode.Add('q', "--.-"); morseCode.Add('r', ".-.");
+  morseCode.Add('s', "..."); morseCode.Add('t', "-");
+  morseCode.Add('u', "..-"); morseCode.Add('v', "...-");
+  morseCode.Add('w', ".--"); morseCode.Add('x', "-..-");
+  morseCode.Add('y', "-.--"); morseCode.Add('z', "--..");
+  morseCode.Add('1', ".----"); morseCode.Add('2', "..---");
+  morseCode.Add('3', "...--"); morseCode.Add('4', "....-");
+  morseCode.Add('5', "....."); morseCode.Add('6', "-....");
+  morseCode.Add('7', "--..."); morseCode.Add('8', "---..");
+  morseCode.Add('9', "----."); morseCode.Add('0', "-----");
 #endregion
 
 Regex comparativeRegexAlf = new Regex("[a-zA-Z0-9]");
-Regex comparativeRegexBraile = new Regex(@"\.?\-?");
+Regex comparativeRegexMorse = new Regex(@"\.?\-?");
 
 Console.WriteLine("Ingresa la frase a convertir");
 
@@ -33,7 +33,7 @@ string? paragraphToConvert = Console.ReadLine();
 
 if(comparativeRegexAlf.IsMatch(paragraphToConvert))
   Console.WriteLine(ConvertToMorse(paragraphToConvert));
-else if(comparativeRegexBraile.IsMatch(paragraphToConvert))
+else if(comparativeRegexMorse.IsMatch(paragraphToConvert))
   Console.WriteLine(ConvertFromMorse(paragraphToConvert));
 else
   Console.WriteLine("Hubo un problema con la conversión. Revise el texto ingresado");
@@ -48,13 +48,13 @@ string ConvertToMorse(string words) {
     while(pos < words.Length) {
       letter = char.Parse(words[pos].ToString().ToLower());
       if(letter == ' ') morse = morse + "  ";
-      else morse = morse + braileCode[letter] + " ";
+      else morse = morse + morseCode[letter] + " ";
       pos++;
     }
   }
   catch (System.Exception)
   {
-    Console.WriteLine("Hubo un error al convertir de alfabético a Braile");
+    Console.WriteLine("Hubo un error al convertir de alfabético a Morse");
     return "";
   }
   Console.WriteLine("El resultado es el siguiente");
@@ -71,13 +71,13 @@ string ConvertFromMorse(string code) {
   {
     while(pos < toConvert.Length) {
       if(toConvert[pos] == "") paragraph = paragraph + " ";
-      else paragraph = paragraph + braileCode.FirstOrDefault(x => x.Value == toConvert[pos]).Key;
+      else paragraph = paragraph + morseCode.FirstOrDefault(x => x.Value == toConvert[pos]).Key;
       pos++;
     }
   }
   catch (System.Exception)
   {
-    Console.WriteLine("Hubo un error al convertir de Braile a alfabético");
+    Console.WriteLine("Hubo un error al convertir de Morse a alfabético");
     return "";
   }
   
